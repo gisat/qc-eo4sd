@@ -11,8 +11,8 @@ services:
       - 8000:8000
     environment:
       - PRODUCT_DIRS=/usr/local/src/qc-eo4sd/product_definitions
-      - INCOMING_DIR=/mnt/qc_tool_incoming/incoming
-      - SUBMISSION_DIR=/mnt/qc_tool_submission/submission
+      - INCOMING_DIR=/mnt/qc_tool_volume/incoming
+      - SUBMISSION_DIR=/mnt/qc_tool_volume/submission
       - WPS_DIR=/mnt/qc_tool_volume/wps
       - WORK_DIR=/mnt/qc_tool_volume/work
       - FRONTEND_PORT=8000
@@ -33,8 +33,7 @@ services:
     image: qc_tool_wps
     environment:
       - PRODUCT_DIRS=/usr/local/src/qc-eo4sd/product_definitions
-      - BOUNDARY_DIR=/mnt/qc_tool_boundary/boundaries
-      - INCOMING_DIR=/mnt/qc_tool_incoming/incoming
+      - INCOMING_DIR=/mnt/qc_tool_volume/incoming
       - WPS_DIR=/mnt/qc_tool_volume/wps
       - WORK_DIR=/mnt/qc_tool_volume/work
       - WPS_PORT=5000
