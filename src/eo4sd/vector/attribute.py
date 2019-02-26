@@ -62,13 +62,13 @@ def run_check(params, status):
         missing_attrs = product_attrs
 
         if len(extra_attrs) > 0:
-            status.failed("Layer {:s} has attributes in incorrect format: {:s}."
+            status.aborted("Layer {:s} has attributes in incorrect format: {:s}."
                           .format(layer_def["src_layer_name"],
                                   ", ".join("{:s}({:s})".format(attr_name, ",".join(extra_attrs[attr_name]))
                                             for attr_name in sorted(extra_attrs.keys()))))
 
         if len(missing_attrs) > 0:
-            status.failed("Layer {:s} has missing attributes: {:s}."
+            status.aborted("Layer {:s} has missing attributes: {:s}."
                            .format(layer_def["src_layer_name"],
                                    ", ".join("{:s}({:s})".format(attr_name, ",".join(missing_attrs[attr_name]))
                                              for attr_name in sorted(missing_attrs.keys()))))

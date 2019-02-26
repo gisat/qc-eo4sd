@@ -1,0 +1,104 @@
+{
+  "description": "Land Use / Land Cover HR",
+  "steps": [
+    {
+      "check_ident": "qc_tool.vector.unzip",
+      "required": true
+    },
+    {
+      "check_ident": "eo4sd.vector.naming_eo4sd",
+      "required": true,
+      "parameters": {
+        "layer_regex": "^EO4SD_(?P<place>[a-zA-Z_]+)_LULCHR_(?P<year>[0-9]{4})$"
+      }
+    },
+    {
+      "check_ident": "qc_tool.vector.format",
+      "required": true,
+      "parameters": {
+        "layers":["al"],
+        "formats": [".shp"],
+        "drivers": {".shp": "ESRI Shapefile"}
+      }
+    },
+    {
+      "check_ident": "eo4sd.vector.attribute",
+      "required": true,
+      "parameters": {
+        "layers": ["al"],
+        "attributes": {"ID": ["string", "integer", "real"],
+                       "C_L1": ["integer", "real"],
+                       "N_L1": ["string"],
+                       "C_L2": ["integer", "real"],
+                       "N_L2": ["string"],
+                       "AREA": ["integer","real"]
+                       }
+      }
+    },
+    {
+      "check_ident": "eo4sd.vector.projection",
+      "required": true,
+      "parameters": {
+        "layers": ["al"],
+        "epsg": {"DHAKA": 32646,
+                 "KARACHI": 32642,
+                 "BAMAKO": 32629,
+                 "LIMA": 32718,
+                 "MANDALAY": 32647,
+                 "MWANZA": 32736,
+                 "PHNOM_PENH": 32648,
+                 "RAMADI_FALLUJAH": 32638
+                }
+      }
+    },
+    {
+      "check_ident": "eo4sd.vector.import2pg",
+      "required": true
+    },
+    {
+      "check_ident": "qc_tool.vector.unique",
+      "required": false,
+      "parameters": {
+        "layers": ["al"],
+        "unique_keys": ["id"]
+      }
+    },
+    {
+      "check_ident": "qc_tool.vector.enum",
+      "required": false,
+      "parameters": {
+        "layers": ["al"],
+        "column_defs": [["c_l1", [10000, 20000, 30000, 40000, 50000]],
+                        ["c_l2", [11000, 12000, 13000, 14000, 20000, 31000, 32000, 33000, 40000, 51000, 52000]]]
+      }
+    },
+    {
+      "check_ident": "qc_tool.vector.singlepart",
+      "required": false,
+      "parameters": {
+        "layers": ["al"]
+      }
+    },
+    {
+      "check_ident": "qc_tool.vector.singlepart",
+      "required": false,
+      "parameters": {
+        "layers": ["al"]
+      }
+    },
+    {
+      "check_ident": "qc_tool.vector.geometry",
+      "required": false,
+      "parameters": {
+        "layers": ["al"]
+      }
+    },
+    {
+      "check_ident": "qc_tool.vector.overlap",
+      "required": false,
+      "parameters": {
+        "layers": ["al"]
+      }
+    }
+  ]
+}
