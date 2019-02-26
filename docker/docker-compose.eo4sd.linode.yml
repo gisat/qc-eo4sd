@@ -18,6 +18,8 @@ services:
       - FRONTEND_PORT=8000
       - FRONTEND_DB_PATH=/mnt/qc_tool_volume/work/frontend.sqlite3
       - WPS_URL=http://qc_tool_wps:5000/wps
+    networks:
+      - qc_tool_network
     volumes:
       - qc_tool_volume:/mnt/qc_tool_volume
       - qc_tool_frontend:/var/lib/qc_tool
@@ -45,6 +47,8 @@ services:
       - LEAVE_SCHEMA=no
       - JOBDIR_EXIST_OK=no
       - LEAVE_JOBDIR=no
+    networks:
+      - qc_tool_network
     volumes:
       - qc_tool_volume:/mnt/qc_tool_volume
 
@@ -53,3 +57,15 @@ services:
       context: .
       dockerfile: Dockerfile.postgis
     image: qc_tool_postgis
+    networks:
+      - qc_tool_network
+
+volumes:
+  qc_tool_frontend:
+    driver: local
+  qc_tool_volume:
+    driver: local
+
+networks:
+  qc_tool_network:
+    driver: bridge
