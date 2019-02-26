@@ -26,7 +26,7 @@
       "required": true,
       "parameters": {
         "layers": ["al"],
-        "attributes": {"ALS_ID": ["string", "integer"],
+        "attributes": {"ALS_ID": ["string", "integer", "real"],
                        "AL1_NAMEF": ["string"],
                        "AL2_NAMEF": ["string"],
                        "AL3_NAMEF": ["string"],
