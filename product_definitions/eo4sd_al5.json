@@ -1,5 +1,5 @@
 {
-  "description": "Analytical Layer - Informal Settlements",
+  "description": "Analytical Layer Level 5",
   "steps": [
     {
       "check_ident": "qc_tool.vector.unzip",
@@ -26,16 +26,22 @@
       "required": true,
       "parameters": {
         "layers": ["al"],
-        "attributes": {"ALS_ID": ["string", "integer"],
+        "attributes": {"AL1_ID": ["string", "integer"],
+                       "AL2_ID": ["string", "integer"],
+                       "AL3_ID": ["string", "integer"],
+                       "AL4_ID": ["string", "integer"],
+                       "AL5_ID": ["string", "integer"],
                        "AL1_NAMEF": ["string"],
                        "AL2_NAMEF": ["string"],
                        "AL3_NAMEF": ["string"],
-                       "ALS_NAMEF": ["string"],
-                       "ALS_NAME": ["string"],
+                       "AL4_NAMEF": ["string"],
+                       "AL5_NAMEF": ["string"],
+                       "AL4_NAME": ["string"],
                        "AL1_AREA": ["integer", "real"],
                        "AL2_AREA": ["integer","real"],
                        "AL3_AREA": ["integer","real"],
-                       "ALS_AREA": ["integer","real"]
+                       "AL4_AREA": ["integer","real"],
+                       "AL5_AREA": ["integer","real"]
                        }
       }
     },
@@ -64,7 +70,7 @@
       "required": false,
       "parameters": {
         "layers": ["al"],
-        "unique_keys": ["als_id", "als_namef", "als_name"]
+        "unique_keys": ["al5_id", "al5_namef", "al5_name"]
       }
     },
     {
