@@ -1,0 +1,45 @@
+# Dockerfile for building environment for COP15m WPS checking processes.
+# Currently, it utilizes flask as wsgi server.
+
+FROM ubuntu:xenial
+
+LABEL author=gisat.cz
+LABEL description="QC tool environment."
+
+ENV PYTHONPATH=/usr/local/src/copernicus_quality_tools/src:/usr/local/src/qc-eo4sd/src
+
+# Add repositories.
+RUN apt-get -y update \
+    && apt-get -y install software-properties-common \
+    && add-apt-repository -y ppa:ubuntugis/ppa
+
+# Upgrade the base system.
+RUN apt-get -y update \
+    && apt-get -y upgrade \
+    && apt-get -y install python3-pip \
+    && pip3 install --upgrade pip \
+    && apt-get -y install git
+
+# Install geo environment.
+RUN apt-get -y install gdal-bin python3-psycopg2 python3-gdal python3-numpy
+
+# Install scikit-image & reportlab & flask & pywps.
+RUN apt-get -y install gcc python3-dev libproj-dev python3-lxml \
+    && pip3 install --upgrade setuptools \
+    && pip3 install scikit-image \
+    && pip3 install reportlab \
+    && pip3 install Flask \
+    && env PROJ_DIR=/usr pip3 install pyproj \
+    && cd /usr/local/src \
+    && pip3 install -e git+https://github.com/geopython/pywps.git@4.0.0#egg=pywps-dev
+
+# Install qc tool.
+RUN cd /usr/local/src \
+    && git clone --single-branch --branch dev https://github.com/eea/copernicus_quality_tools
+
+# Install eo4sd checks and product definitions.
+RUN cd /usr/local/src \
+    && git clone https://97cb234a2c49e795fe9ff5c39cc99ebd1e3debee@github.com/gisat/qc-eo4sd
+
+# Run wps application.
+CMD python3 -m qc_tool.wps.server

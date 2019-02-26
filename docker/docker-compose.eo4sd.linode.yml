@@ -1,0 +1,55 @@
+version: '3'
+services:
+  qc_tool_frontend:
+    depends_on:
+      - qc_tool_wps
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    image: qc_tool_frontend
+    ports:
+      - 8000:8000
+    environment:
+      - PRODUCT_DIRS=/usr/local/src/qc-eo4sd/docker/product_definitions_eo4sd
+      - INCOMING_DIR=/mnt/qc_tool_incoming/incoming
+      - SUBMISSION_DIR=/mnt/qc_tool_submission/submission
+      - WPS_DIR=/mnt/qc_tool_volume/wps
+      - WORK_DIR=/mnt/qc_tool_volume/work
+      - FRONTEND_PORT=8000
+      - FRONTEND_DB_PATH=/mnt/qc_tool_volume/work/frontend.sqlite3
+      - WPS_URL=http://qc_tool_wps:5000/wps
+    volumes:
+      - qc_tool_volume:/mnt/qc_tool_volume
+      - qc_tool_frontend:/var/lib/qc_tool
+
+  qc_tool_wps:
+    depends_on:
+      - qc_tool_postgis
+    build:
+      context: .
+      dockerfile: Dockerfile.wps
+    image: qc_tool_wps
+    environment:
+      - PRODUCT_DIRS=/usr/local/src/qc-eo4sd/docker/product_definitions_eo4sd
+      - BOUNDARY_DIR=/mnt/qc_tool_boundary/boundaries
+      - INCOMING_DIR=/mnt/qc_tool_incoming/incoming
+      - WPS_DIR=/mnt/qc_tool_volume/wps
+      - WORK_DIR=/mnt/qc_tool_volume/work
+      - WPS_PORT=5000
+      - WPS_URL=http://qc_tool_wps:5000/wps
+      - WPS_OUTPUT_URL=http://qc_tool_wps:5000/output
+      - PG_HOST=qc_tool_postgis
+      - PG_PORT=5432
+      - PG_USER=qc_job
+      - PG_DATABASE=qc_tool_db
+      - LEAVE_SCHEMA=no
+      - JOBDIR_EXIST_OK=no
+      - LEAVE_JOBDIR=no
+    volumes:
+      - qc_tool_volume:/mnt/qc_tool_volume
+
+  qc_tool_postgis:
+    build:
+      context: .
+      dockerfile: Dockerfile.postgis
+    image: qc_tool_postgis

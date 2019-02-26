@@ -1,0 +1,36 @@
+FROM ubuntu:xenial
+
+LABEL author=gisat.cz
+LABEL description="QC tool environment, image for postgresql & postgis component."
+
+# Add repositories and upgrade the system.
+RUN apt-get -y update \
+    && apt-get -y install wget software-properties-common \
+    && add-apt-repository -y ppa:ubuntugis/ppa \
+    && add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" \
+    && wget --quiet --output-document=- https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
+    && apt-get -y update \
+    && apt-get -y upgrade
+
+# Install postgresql & postgis.
+RUN apt-get -y install postgresql-10-postgis-2.4
+
+USER postgres
+
+# Configure the qc tool database.
+#
+# We insert qc_job/trust clause just *before* 127.0.0.1/md5 clause in pg_hba.conf,
+# so that qc_job is thus allowed to connect to qc_tool_db without password even
+# when connecting to 127.0.0.1.
+COPY ./init_qc_tool_db.sql /usr/local/src
+RUN sed --in-place=.orig --expression='/^# IPv4 local connections/a host  qc_tool_db  qc_job  all  trust' /etc/postgresql/10/main/pg_hba.conf \
+    && echo "listen_addresses='*'" >>/etc/postgresql/10/main/postgresql.conf \
+    && /etc/init.d/postgresql start \
+    && psql --file=/usr/local/src/init_qc_tool_db.sql \
+    && /etc/init.d/postgresql stop
+
+VOLUME ["/var/log/postgresql"]
+
+EXPOSE 5432
+
+CMD ["/usr/lib/postgresql/10/bin/postgres", "-D", "/var/lib/postgresql/10/main", "-c", "config_file=/etc/postgresql/10/main/postgresql.conf"]

@@ -1,0 +1,79 @@
+{
+  "description": "Analytical Layer Level 1",
+  "steps": [
+    {
+      "check_ident": "qc_tool.vector.unzip",
+      "required": true
+    },
+    {
+      "check_ident": "eo4sd.vector.naming_eo4sd",
+      "required": true,
+      "parameters": {
+        "layer_regex": "^EO4SD_(?P<place>[a-zA-Z_]+)_AL1$"
+      }
+    },
+    {
+      "check_ident": "qc_tool.vector.format",
+      "required": true,
+      "parameters": {
+        "layers":["al"],
+        "formats": [".shp"],
+        "drivers": {".shp": "ESRI Shapefile"}
+      }
+    },
+    {
+      "check_ident": "eo4sd.vector.attribute",
+      "required": true,
+      "parameters": {
+        "layers": ["al"],
+        "attributes": {"AL1_ID": ["string", "integer"],
+                       "AL1_NAME": ["string"],
+                       "AL1_NAMEF": ["string"],
+                       "AL1_AREA": ["integer","real"]
+                       }
+      }
+    },
+    {
+      "check_ident": "eo4sd.vector.projection",
+      "required": true,
+      "parameters": {
+        "layers": ["al"],
+        "epsg": {"DHAKA": 32646,
+                 "KARACHI": 32642,
+                 "BAMAKO": 32629,
+                 "LIMA": 32718,
+                 "MANDALAY": 32647,
+                 "MWANZA": 32736,
+                 "PHNOM_PENH": 32648,
+                 "RAMADI_FALLUJAH": 32638
+                }
+      }
+    },
+    {
+      "check_ident": "eo4sd.vector.import2pg",
+      "required": true
+    },
+    {
+      "check_ident": "qc_tool.vector.unique",
+      "required": false,
+      "parameters": {
+        "layers": ["al"],
+        "unique_keys": ["al1_id", "al1_namef"]
+      }
+    },
+    {
+      "check_ident": "qc_tool.vector.singlepart",
+      "required": false,
+      "parameters": {
+        "layers": ["al"]
+      }
+    },
+    {
+      "check_ident": "qc_tool.vector.geometry",
+      "required": false,
+      "parameters": {
+        "layers": ["al"]
+      }
+    }
+  ]
+}

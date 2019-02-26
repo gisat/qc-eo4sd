@@ -1,0 +1,95 @@
+{
+  "description": "Analytical Layer - Informal Settlements",
+  "steps": [
+    {
+      "check_ident": "qc_tool.vector.unzip",
+      "required": true
+    },
+    {
+      "check_ident": "eo4sd.vector.naming_eo4sd",
+      "required": true,
+      "parameters": {
+        "layer_regex": "^EO4SD_(?P<place>[a-zA-Z_]+)_ALS$"
+      }
+    },
+    {
+      "check_ident": "qc_tool.vector.format",
+      "required": true,
+      "parameters": {
+        "layers":["al"],
+        "formats": [".shp"],
+        "drivers": {".shp": "ESRI Shapefile"}
+      }
+    },
+    {
+      "check_ident": "eo4sd.vector.attribute",
+      "required": true,
+      "parameters": {
+        "layers": ["al"],
+        "attributes": {"AL1_ID": ["string", "integer"],
+                       "AL2_ID": ["string", "integer"],
+                       "AL3_ID": ["string", "integer"],
+                       "AL4_ID": ["string", "integer"],
+                       "AL1_NAMEF": ["string"],
+                       "AL2_NAMEF": ["string"],
+                       "AL3_NAMEF": ["string"],
+                       "AL4_NAMEF": ["string"],
+                       "AL4_NAME": ["string"],
+                       "AL1_AREA": ["integer", "real"],
+                       "AL2_AREA": ["integer","real"],
+                       "AL3_AREA": ["integer","real"],
+                       "AL4_AREA": ["integer","real"]
+                       }
+      }
+    },
+    {
+      "check_ident": "eo4sd.vector.projection",
+      "required": true,
+      "parameters": {
+        "layers": ["al"],
+        "epsg": {"DHAKA": 32646,
+                 "KARACHI": 32642,
+                 "BAMAKO": 32629,
+                 "LIMA": 32718,
+                 "MANDALAY": 32647,
+                 "MWANZA": 32736,
+                 "PHNOM_PENH": 32648,
+                 "RAMADI_FALLUJAH": 32638
+                }
+      }
+    },
+    {
+      "check_ident": "eo4sd.vector.import2pg",
+      "required": true
+    },
+    {
+      "check_ident": "qc_tool.vector.unique",
+      "required": false,
+      "parameters": {
+        "layers": ["al"],
+        "unique_keys": ["al4_id", "al4_namef", "al4_name"]
+      }
+    },
+    {
+      "check_ident": "qc_tool.vector.singlepart",
+      "required": false,
+      "parameters": {
+        "layers": ["al"]
+      }
+    },
+    {
+      "check_ident": "qc_tool.vector.geometry",
+      "required": false,
+      "parameters": {
+        "layers": ["al"]
+      }
+    },
+    {
+      "check_ident": "qc_tool.vector.overlap",
+      "required": false,
+      "parameters": {
+        "layers": ["al"]
+      }
+    }
+  ]
+}
