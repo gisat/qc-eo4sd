@@ -107,13 +107,6 @@
       }
     },
     {
-      "check_ident": "qc_tool.vector.singlepart",
-      "required": false,
-      "parameters": {
-        "layers": ["al"]
-      }
-    },
-    {
       "check_ident": "qc_tool.vector.geometry",
       "required": false,
       "parameters": {

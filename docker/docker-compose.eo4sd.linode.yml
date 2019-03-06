@@ -12,12 +12,12 @@ services:
     environment:
       - PRODUCT_DIRS=/usr/local/src/qc-eo4sd/product_definitions
       - INCOMING_DIR=/mnt/qc_tool_volume/incoming
-      - SUBMISSION_DIR=/mnt/qc_tool_volume/submission
       - WPS_DIR=/mnt/qc_tool_volume/wps
       - WORK_DIR=/mnt/qc_tool_volume/work
       - FRONTEND_PORT=8000
       - FRONTEND_DB_PATH=/mnt/qc_tool_volume/work/frontend.sqlite3
       - WPS_URL=http://qc_tool_wps:5000/wps
+      - SHOW_LOGO=no
     networks:
       - qc_tool_network
     volumes:
@@ -46,6 +46,7 @@ services:
       - LEAVE_SCHEMA=no
       - JOBDIR_EXIST_OK=no
       - LEAVE_JOBDIR=no
+      - SHOW_LOGO=no
     networks:
       - qc_tool_network
     volumes:

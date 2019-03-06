@@ -29,9 +29,9 @@ def run_check(params, status):
                  ogr.OFTWideString: "wide-string",
                  ogr.OFTWideStringList: "list-of-wide-string"}
 
-    ALLOWED_TYPES = {ogr.OFTInteger: "integer",
-                     ogr.OFTInteger64: "integer",
-                     ogr.OFTReal: "real",
+    ALLOWED_TYPES = {ogr.OFTInteger: "numeric",
+                     ogr.OFTInteger64: "numeric",
+                     ogr.OFTReal: "numeric",
                      ogr.OFTString: "string",
                      ogr.OFTWideString: "string"}
 

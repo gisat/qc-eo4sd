@@ -12,19 +12,18 @@ services:
     environment:
       - PRODUCT_DIRS=/usr/local/src/qc-eo4sd/product_definitions
       - INCOMING_DIR=/mnt/qc_tool_incoming/incoming
-      - SUBMISSION_DIR=/mnt/qc_tool_submission/submission
       - WPS_DIR=/mnt/qc_tool_volume/wps
       - WORK_DIR=/mnt/qc_tool_volume/work
       - FRONTEND_PORT=8000
       - FRONTEND_DB_PATH=/mnt/qc_tool_volume/work/frontend.sqlite3
       - WPS_URL=http://qc_tool_wps:5000/wps
+      - SHOW_LOGO=no
     volumes:
       - /home/jiri/github/qc-eo4sd:/usr/local/src/qc-eo4sd
       - /home/jiri/qc_tool/qc_tool_incoming:/mnt/qc_tool_incoming/incoming
       - /home/jiri/qc_tool/qc_tool_boundary:/mnt/qc_tool_boundary
       - /home/jiri/qc_tool/qc_tool_wps:/mnt/qc_tool_volume/wps
       - /home/jiri/qc_tool/qc_tool_work:/mnt/qc_tool_volume/work
-      - /home/jiri/qc_tool/qc_tool_submission:/mnt/qc_tool_submission
 
   qc_tool_wps:
     depends_on:
@@ -49,6 +48,7 @@ services:
       - LEAVE_SCHEMA=no
       - JOBDIR_EXIST_OK=no
       - LEAVE_JOBDIR=no
+      - SHOW_LOGO=no
     volumes:
       - /home/jiri/github/qc-eo4sd:/usr/local/src/qc-eo4sd
       - /home/jiri/qc_tool/qc_tool_incoming:/mnt/qc_tool_incoming/incoming

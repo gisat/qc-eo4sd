@@ -1,5 +1,5 @@
 {
-  "description": "Land Use / Land Cover HR",
+  "description": "Land Use / Land Cover Change HR",
   "steps": [
     {
       "check_ident": "qc_tool.vector.unzip",
@@ -9,7 +9,7 @@
       "check_ident": "eo4sd.vector.naming_eo4sd",
       "required": true,
       "parameters": {
-        "layer_regex": "^EO4SD_(?P<place>[a-zA-Z_]+)_LULCHR_(?P<year>[0-9]{4})$"
+        "layer_regex": "^EO4SD_(?P<place>[a-zA-Z_]+)_CHANGEHR_(?P<year1>[0-9]{4})_(?P<year2>[0-9]{4})$"
       }
     },
     {
@@ -26,12 +26,18 @@
       "required": true,
       "parameters": {
         "layers": ["al"],
-        "attributes": {"ID": ["string", "integer", "real"],
-                       "C_L1": ["integer", "real"],
-                       "N_L1": ["string"],
-                       "C_L2": ["integer", "real"],
-                       "N_L2": ["string"],
-                       "AREA": ["integer","real"]
+        "attributes": {"ID": ["string", "numeric"],
+                       "C_L1_2006": ["numeric"],
+                       "N_L1_2006": ["string"],
+                       "C_L2_2006": ["numeric"],
+                       "N_L2_2006": ["string"],
+                       "C_L1_2017": ["numeric"],
+                       "N_L1_2017": ["string"],
+                       "C_L2_2017": ["numeric"],
+                       "N_L2_2017": ["string"],
+                       "C_LCF1": ["string"],
+                       "N_LCF1": ["string"],
+                       "AREA": ["numeric"]
                        }
       }
     },
@@ -68,8 +74,12 @@
       "required": false,
       "parameters": {
         "layers": ["al"],
-        "column_defs": [["c_l1", [10000, 20000, 30000, 40000, 50000]],
-                        ["c_l2", [11000, 12000, 13000, 14000, 20000, 31000, 32000, 33000, 40000, 51000, 52000]]]
+        "column_defs": [["c_l1_2006", [10000, 20000, 30000, 40000, 50000]],
+                        ["c_l2_2006", [11000, 12000, 13000, 14000, 20000, 31000, 32000, 33000, 40000, 51000, 52000]],
+                        ["c_l1_2017", [10000, 20000, 30000, 40000, 50000]],
+                        ["c_l2_2017", [11000, 12000, 13000, 14000, 20000, 31000, 32000, 33000, 40000, 51000, 52000]],
+          ["c_lcf1", ["LCF10", "LCF20", "LCF30", "LCF40", "LCF50", "LCF60", "LCF70"]]
+        ]
       }
     },
     {
@@ -95,3 +105,4 @@
     }
   ]
 }
+

@@ -23,7 +23,7 @@ RUN cd /usr/local/src \
 
 # Install eo4sd checks and product definitions.
 RUN cd /usr/local/src \
-    && git clone https://97cb234a2c49e795fe9ff5c39cc99ebd1e3debee@github.com/gisat/qc-eo4sd
+    && git clone https://github.com/gisat/qc-eo4sd
 
 # Run frontend application.
 
