@@ -31,7 +31,7 @@ RUN apt-get -y install gcc python3-dev libproj-dev python3-lxml \
     && pip3 install Flask \
     && env PROJ_DIR=/usr pip3 install pyproj \
     && cd /usr/local/src \
-    && pip3 install -e git+https://github.com/geopython/pywps.git@4.0.0#egg=pywps-dev
+    && pip3 install -e git+https://github.com/geopython/pywps.git@4.2.1#egg=pywps-dev
 
 # Install qc tool.
 RUN cd /usr/local/src \
