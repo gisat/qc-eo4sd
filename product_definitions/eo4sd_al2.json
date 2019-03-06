@@ -26,13 +26,13 @@
       "required": true,
       "parameters": {
         "layers": ["al"],
-        "attributes": {"AL1_ID": ["string", "integer"],
-                       "AL2_ID": ["string", "integer"],
+        "attributes": {"AL1_ID": ["string", "numeric"],
+                       "AL2_ID": ["string", "numeric"],
                        "AL1_NAMEF": ["string"],
                        "AL2_NAMEF": ["string"],
                        "AL2_NAME": ["string"],
-                       "AL1_AREA": ["integer", "real"],
-                       "AL2_AREA": ["integer","real"]
+                       "AL1_AREA": ["numeric"],
+                       "AL2_AREA": ["numeric"]
                        }
       }
     },

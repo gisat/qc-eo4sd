@@ -26,10 +26,10 @@
       "required": true,
       "parameters": {
         "layers": ["al"],
-        "attributes": {"AL1_ID": ["string", "integer"],
+        "attributes": {"AL1_ID": ["numeric", "string"],
                        "AL1_NAME": ["string"],
                        "AL1_NAMEF": ["string"],
-                       "AL1_AREA": ["integer","real"]
+                       "AL1_AREA": ["numeric"]
                        }
       }
     },

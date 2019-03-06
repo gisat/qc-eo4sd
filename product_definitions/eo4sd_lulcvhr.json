@@ -26,16 +26,16 @@
       "required": true,
       "parameters": {
         "layers": ["al"],
-        "attributes": {"ID": ["string", "integer", "real"],
-                       "C_L1": ["integer", "real"],
+        "attributes": {"ID": ["string", "numeric"],
+                       "C_L1": ["numeric"],
                        "N_L1": ["string"],
-                       "C_L2": ["integer", "real"],
+                       "C_L2": ["numeric"],
                        "N_L2": ["string"],
-                       "C_L3": ["integer", "real"],
+                       "C_L3": ["numeric"],
                        "N_L3": ["string"],
-                       "C_L4": ["integer", "real"],
+                       "C_L4": ["numeric"],
                        "N_L4": ["string"],
-                       "AREA": ["integer","real"]
+                       "AREA": ["numeric"]
                        }
       }
     },

@@ -26,19 +26,19 @@
       "required": true,
       "parameters": {
         "layers": ["al"],
-        "attributes": {"AL1_ID": ["string", "integer"],
-                       "AL2_ID": ["string", "integer"],
-                       "AL3_ID": ["string", "integer"],
-                       "AL4_ID": ["string", "integer"],
+        "attributes": {"AL1_ID": ["string", "numeric"],
+                       "AL2_ID": ["string", "numeric"],
+                       "AL3_ID": ["string", "numeric"],
+                       "AL4_ID": ["string", "numeric"],
                        "AL1_NAMEF": ["string"],
                        "AL2_NAMEF": ["string"],
                        "AL3_NAMEF": ["string"],
                        "AL4_NAMEF": ["string"],
                        "AL4_NAME": ["string"],
-                       "AL1_AREA": ["integer", "real"],
-                       "AL2_AREA": ["integer","real"],
-                       "AL3_AREA": ["integer","real"],
-                       "AL4_AREA": ["integer","real"]
+                       "AL1_AREA": ["numeric"],
+                       "AL2_AREA": ["numeric"],
+                       "AL3_AREA": ["numeric"],
+                       "AL4_AREA": ["numeric"]
                        }
       }
     },
