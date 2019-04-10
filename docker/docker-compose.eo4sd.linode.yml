@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile.frontend
       args:
         - VERSION=1.2.6
-    image: qc_tool_frontend
+    image: jirikadlec2/qc_eo4sd_frontend
     ports:
       - 80:8000
     environment:
@@ -30,7 +30,7 @@ services:
       dockerfile: Dockerfile.worker
       args:
         - VERSION=1.2.6
-    image: qc_tool_worker
+    image: jirikadlec2/qc_eo4sd_worker
     environment:
       - PRODUCT_DIRS=/usr/local/src/qc-eo4sd/product_definitions
       - INCOMING_DIR=/mnt/qc_tool_volume/incoming
@@ -53,7 +53,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.postgis
-    image: qc_tool_postgis
+      args:
+        - VERSION=1.2.6
+    image: jirikadlec2/qc_eo4sd_postgis
     networks:
       - qc_tool_network
 
