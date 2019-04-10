@@ -1,30 +1,39 @@
 # Dockerfile for building environment for COP15m WPS checking processes.
 # Currently, it utilizes django for the frontend
 
-FROM ubuntu:xenial
+FROM ubuntu:bionic
 
 LABEL author=gisat.cz
 LABEL description="QC tool environment, frontend application."
 
 ENV PYTHONPATH=/usr/local/src/copernicus_quality_tools/src:/usr/local/src/qc-eo4sd/src
+ENV VERSION=1.2.6
 
 # Upgrade the base system.
 RUN apt-get -y update \
     && apt-get -y upgrade \
     && apt-get -y install python3-pip \
     && pip3 install --upgrade pip \
-    && apt-get -y install git
+    && apt-get -y install git wget unzip git
 
 # Install qc tool, frontend application.
 RUN cd /usr/local/src \
-    && git clone --single-branch --branch dev https://github.com/eea/copernicus_quality_tools \
+    && wget https://github.com/eea/copernicus_quality_tools/archive/${VERSION}.zip \
+    && unzip ./${VERSION}.zip \
+    && rm ./${VERSION}.zip \
+    && mv ./copernicus_quality_tools-${VERSION} ./copernicus_quality_tools \
+    && echo ${VERSION} >./copernicus_quality_tools/VERSION \
     && cd copernicus_quality_tools/src/qc_tool/frontend \
-    && pip3 install -r ./requirements.txt && mkdir /var/lib/qc_tool
+    && pip3 install -r ./requirements.txt \
+    && mkdir /var/lib/qc_tool
 
 # Install eo4sd checks and product definitions.
 RUN cd /usr/local/src \
     && git clone https://github.com/gisat/qc-eo4sd
 
+# Copy customized frontend file.
+COPY ./custom_login_template.html /usr/local/src/copernicus_quality_tools/src/qc_tool/frontend/dashboard/templates/registration/login.html
+COPY ./custom_base_template.html /usr/local/src/copernicus_quality_tools/src/qc_tool/frontend/dashboard/templates/dashboard/base.html
 # Run frontend application.
 
 CMD cd /usr/local/src/copernicus_quality_tools/src/qc_tool/frontend \

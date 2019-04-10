@@ -1,0 +1,76 @@
+{% load staticfiles static %}
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}{% endblock title %}</title>
+        <meta name="description" content=""/>
+        <meta name="robots" content="{% block robots %}index, follow{% endblock robots %}"/>
+        <meta name="keywords" content="eea, copernicus, qc, tool, gis, quality"/>
+        <link rel="stylesheet" href="{% static 'dashboard/css/bootstrap.min.css' %}" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}dashboard/css/main.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}dashboard/css/bootstrap-dialog.min.css" type="text/css" />
+        <link rel="shortcut icon" type="image/png" href="{{ STATIC_URL }}favicon.ico"/>
+        {% block css %}{% endblock css %}
+
+
+        {% block js_head %}{% endblock js_head %}
+
+    </head>
+    <body>
+        <div id="wrap">
+            <div id="main" class="clear-top">
+                <!--<div class="container">-->
+                <nav id="menucontainer" class="navbar navbar-default navbar-fixed-top">
+                    <!--<div class="navbar navbar-default" role="navigation">-->
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="/"><span>EO4SD QC Tool</span></a>
+                        </div>
+                        <div class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav navbar-right">
+                                {% block menu %}
+                                {% if user.is_superuser %}
+                                <li><a href="{% url 'boundaries'%}">
+                                    <span class="glyphicon glyphicon-cog"></span> Boundaries</a></li>
+                                {% endif %}
+                                {% if user.is_authenticated %}
+                                <li><a href="{% url 'logout'%}?next={{request.path}}">
+                                    <span class="glyphicon glyphicon-log-out"></span> Sign out ({{ user.get_username }})</a></li>
+                                {% else %}
+                                <li><a href="{% url 'login'%}?next={{request.path}}">
+                                    <span class="glyphicon glyphicon-log-in"></span>Sign in</a></li>
+                                {% endif %}
+                                {% endblock %}
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+                {% block content %}{% endblock content %}
+
+                {% block js %}
+                    <script src="{% static 'dashboard/js/jquery.min.js' %}"></script>
+                    <script src="{% static 'dashboard/js/bootstrap.min.js' %}"></script>
+                    <script src="{% static 'dashboard/js/moment.min.js' %}"></script>
+                    <script src="{% static 'dashboard/js/bootstrap-table.min.js' %}"></script>
+                    <script src="{% static 'dashboard/js/bootstrap-table-export.min.js' %}"></script>
+                    <script src="{% static 'dashboard/js/tableexport.min.js' %}"></script>
+                    <script src="{% static 'dashboard/js/bootbox.min.js' %}"></script>
+                {% endblock js %}
+            </div>
+            <br>
+        </div>
+        <footer class="footer">
+            {% include "dashboard/footer.html" %}
+        </footer>
+    </body>
+</html>
