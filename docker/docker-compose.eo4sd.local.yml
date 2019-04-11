@@ -1,12 +1,12 @@
 version: '3'
 services:
   frontend:
-    depends_on:
-      - qc_tool_wps
     build:
       context: .
       dockerfile: Dockerfile.frontend
-    image: qc_tool_frontend
+      args:
+        - VERSION=1.2.6
+    image: jirikadlec2/qc_eo4sd_frontend
     ports:
       - 8000:8000
     environment:
@@ -28,10 +28,10 @@ services:
   worker:
     build:
       context: .
-      dockerfile: Dockerfile.worker
+      dockerfile: Dockerfile.frontend
       args:
         - VERSION=1.2.6
-    image: qc_tool_worker
+    image: jirikadlec2/qc_eo4sd_frontend
     environment:
       - PRODUCT_DIRS=/usr/local/src/qc-eo4sd/product_definitions
       - INCOMING_DIR=/mnt/qc_tool_volume/incoming
@@ -58,5 +58,11 @@ services:
   postgis:
     build:
       context: .
-      dockerfile: Dockerfile.postgis
-    image: qc_tool_postgis
+      dockerfile: Dockerfile.frontend
+      args:
+        - VERSION=1.2.6
+    image: jirikadlec2/qc_eo4sd_frontend
+
+networks:
+  qc_tool_network:
+    driver: bridge

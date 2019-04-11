@@ -38,9 +38,9 @@
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav navbar-right">
                                 {% block menu %}
-                                {% if user.is_superuser %}
-                                <li><a href="{% url 'boundaries'%}">
-                                    <span class="glyphicon glyphicon-cog"></span> Boundaries</a></li>
+                                {% if user.is_staff %}
+                                <li><a href="/admin/">
+                                    <span class="glyphicon glyphicon-cog"></span> Administration</a></li>
                                 {% endif %}
                                 {% if user.is_authenticated %}
                                 <li><a href="{% url 'logout'%}?next={{request.path}}">
