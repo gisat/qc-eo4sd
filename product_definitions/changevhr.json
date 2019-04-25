@@ -1,0 +1,125 @@
+{
+  "description": "Land Use / Land Cover Change VHR",
+  "steps": [
+    {
+      "check_ident": "qc_tool.vector.unzip",
+      "required": true
+    },
+    {
+      "check_ident": "eo4sd.vector.naming_eo4sd",
+      "required": true,
+      "parameters": {
+        "layer_regex": "^EO4SD_(?P<place>[a-zA-Z_]+)_CHANGEVHR_(?P<year1>[0-9]{4})_(?P<year2>[0-9]{4})$"
+      }
+    },
+    {
+      "check_ident": "qc_tool.vector.format",
+      "required": true,
+      "parameters": {
+        "layers":["al"],
+        "formats": [".shp"],
+        "drivers": {".shp": "ESRI Shapefile"}
+      }
+    },
+    {
+      "check_ident": "eo4sd.vector.attribute",
+      "required": true,
+      "parameters": {
+        "layers": ["al"],
+        "attributes": {"ID": ["string", "numeric"],
+                       "C_L1_2006": ["numeric"],
+                       "N_L1_2006": ["string"],
+                       "C_L2_2006": ["numeric"],
+                       "N_L2_2006": ["string"],
+                       "C_L3_2006": ["numeric"],
+                       "N_L3_2006": ["string"],
+                       "C_L1_2017": ["numeric"],
+                       "N_L1_2017": ["string"],
+                       "C_L2_2017": ["numeric"],
+                       "N_L2_2017": ["string"],
+                       "C_L3_2017": ["numeric"],
+                       "N_L3_2017": ["string"],
+                       "C_LCF1": ["string"],
+                       "N_LCF1": ["string"],
+                       "C_LCF2": ["string"],
+                       "N_LCF2": ["string"],
+                       "C_LCFG": ["string"],
+                       "AREA": ["numeric"]
+                       }
+      }
+    },
+    {
+      "check_ident": "eo4sd.vector.projection",
+      "required": true,
+      "parameters": {
+        "layers": ["al"],
+        "epsg": {"DHAKA": 32646,
+                 "KARACHI": 32642,
+                 "BAMAKO": 32629,
+                 "LIMA": 32718,
+                 "MANDALAY": 32647,
+                 "MWANZA": 32736,
+                 "PHNOM_PENH": 32648,
+                 "RAMADI_FALLUJAH": 32638
+                }
+      }
+    },
+    {
+      "check_ident": "eo4sd.vector.import2pg",
+      "required": true
+    },
+    {
+      "check_ident": "qc_tool.vector.unique",
+      "required": false,
+      "parameters": {
+        "layers": ["al"],
+        "unique_keys": ["id"]
+      }
+    },
+    {
+      "check_ident": "qc_tool.vector.enum",
+      "required": false,
+      "parameters": {
+        "layers": ["al"],
+        "column_defs": [["c_l1_2006", [10000, 20000, 30000, 40000, 50000]],
+                        ["c_l2_2006", [11000, 12000, 13000, 14000, 20000, 31000, 32000, 33000, 40000, 51000, 52000]],
+                        ["c_l3_2006", [11100, 11200, 12100, 12200, 12300, 12400, 13100, 13300, 14100, 14200, 14300, 20000, 31000, 32000, 33000, 40000, 51000, 52000]],
+                        ["c_l1_2017", [10000, 20000, 30000, 40000, 50000]],
+                        ["c_l2_2017", [11000, 12000, 13000, 14000, 20000, 31000, 32000, 33000, 40000, 51000, 52000]],
+                        ["c_l3_2017", [11100, 11200, 12100, 12200, 12300, 12400, 13100, 13300, 13400, 14100, 14200, 14300, 20000, 31000, 32000, 33000, 40000, 51000, 52000]],
+          ["c_lcf1", ["LCF10", "LCF20", "LCF30", "LCF40", "LCF50", "LCF60", "LCF70"]],
+          ["c_lcf2", ["LCF11", "LCF12", "LCF13", "LCF14", "LCF15", "LCF16",
+                      "LCF21", "LCF22", "LCF23", "LCF24", "LCF25", "LCF26",
+                      "LCF31", "LCF32", "LCF33", "LCF34", "LCF35",
+                      "LCF40",
+                      "LCF51", "LCF52", "LCF53", "LCF54", "LCF55",
+                      "LCF61", "LCF62", "LCF63", "LCF64",
+                      "LCF71", "LCF72", "LCF73"],
+          ["c_lcfg", ["LCF71", "LCF72", "LCF73", 0]]]
+        ]
+      }
+    },
+    {
+      "check_ident": "qc_tool.vector.singlepart",
+      "required": false,
+      "parameters": {
+        "layers": ["al"]
+      }
+    },
+    {
+      "check_ident": "qc_tool.vector.geometry",
+      "required": false,
+      "parameters": {
+        "layers": ["al"]
+      }
+    },
+    {
+      "check_ident": "qc_tool.vector.overlap",
+      "required": false,
+      "parameters": {
+        "layers": ["al"]
+      }
+    }
+  ]
+}
+
