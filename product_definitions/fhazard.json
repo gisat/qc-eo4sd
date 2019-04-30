@@ -74,10 +74,11 @@
       }
     },
     {
-      "check_ident": "qc_tool.vector.overlap",
+      "check_ident": "eo4sd.vector.overlap",
       "required": false,
       "parameters": {
-        "layers": ["al"]
+        "layers": ["al"],
+        "limit": 1
       }
     }
   ]
