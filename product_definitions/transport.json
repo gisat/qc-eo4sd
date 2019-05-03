@@ -27,7 +27,7 @@
       "parameters": {
         "layers": ["al"],
         "attributes": {"ID": ["string", "numeric"],
-                       "CT_L1": ["string"],
+                       "CT_L1": ["numeric"],
                        "LENGTH": ["numeric"]
                        }
       }
