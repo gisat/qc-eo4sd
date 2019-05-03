@@ -97,7 +97,7 @@
                       "LCF51", "LCF52", "LCF53", "LCF54", "LCF55",
                       "LCF61", "LCF62", "LCF63", "LCF64",
                       "LCF71", "LCF72", "LCF73"]],
-          ["c_lcfg", ["LCF71", "LCF72", "LCF73", 0]]
+          ["c_lcfg", ["LCF71", "LCF72", "LCF73", "0"]]
         ]
       }
     },

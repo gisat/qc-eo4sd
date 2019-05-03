@@ -7,7 +7,7 @@ LABEL author=gisat.cz
 LABEL description="QC tool environment, frontend application."
 
 ENV PYTHONPATH=/usr/local/src/copernicus_quality_tools/src:/usr/local/src/qc-eo4sd/src
-ENV VERSION=1.2.6
+ENV VERSION=1.2.8
 
 # Upgrade the base system.
 RUN apt-get -y update \
