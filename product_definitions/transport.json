@@ -86,6 +86,21 @@
           "MUMBAI": 32643
         }
       }
+    },
+    {
+      "check_ident": "eo4sd.vector.import2pg",
+      "required": true,
+      "parameters": {
+        "layer_type": "MULTILINESTRING"
+      }
+    },
+    {
+      "check_ident": "qc_tool.vector.enum",
+      "required": false,
+      "parameters": {
+        "layers": ["al"],
+        "column_defs": [["ct_l1", [10, 20, 30, 40, 50]]]
+      }
     }
   ]
 }

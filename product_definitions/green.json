@@ -26,13 +26,7 @@
       "required": true,
       "parameters": {
         "layers": ["al"],
-        "attributes": {"ID": ["string", "numeric"],
-                       "C_L1": ["numeric"],
-                       "N_L1": ["string"],
-                       "C_L2": ["numeric"],
-                       "N_L2": ["string"],
-                       "AREA": ["numeric"]
-                       }
+        "attributes": {"AREA": ["numeric"]}
       }
     },
     {
@@ -93,23 +87,6 @@
     {
       "check_ident": "eo4sd.vector.import2pg",
       "required": true
-    },
-    {
-      "check_ident": "qc_tool.vector.unique",
-      "required": false,
-      "parameters": {
-        "layers": ["al"],
-        "unique_keys": ["id"]
-      }
-    },
-    {
-      "check_ident": "qc_tool.vector.enum",
-      "required": false,
-      "parameters": {
-        "layers": ["al"],
-        "column_defs": [["c_l2", [14000]],
-                        ["c_l3", [14100, 14200, 14300]]]
-      }
     },
     {
       "check_ident": "qc_tool.vector.singlepart",

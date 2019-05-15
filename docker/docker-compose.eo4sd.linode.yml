@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile.frontend
       args:
-        - VERSION=1.2.8
+        - VERSION=1.2.9
     image: jirikadlec2/qc_eo4sd_frontend
     ports:
       - 80:8000
@@ -29,7 +29,7 @@ services:
       context: .
       dockerfile: Dockerfile.worker
       args:
-        - VERSION=1.2.8
+        - VERSION=1.2.9
     image: jirikadlec2/qc_eo4sd_worker
     environment:
       - PRODUCT_DIRS=/usr/local/src/qc-eo4sd/product_definitions
@@ -54,7 +54,7 @@ services:
       context: .
       dockerfile: Dockerfile.postgis
       args:
-        - VERSION=1.2.8
+        - VERSION=1.2.9
     image: jirikadlec2/qc_eo4sd_postgis
     networks:
       - qc_tool_network

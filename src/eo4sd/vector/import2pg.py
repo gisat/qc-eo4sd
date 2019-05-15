@@ -31,13 +31,18 @@ def run_check(params, status):
         if authority_name == "EPSG":
             authority_code = int(authority_code)
 
+        # layer type parameter (MULTIPOLYGON or LINE)
+        nlt = "MULTIPOLYGON"
+        if "layer_type" in params:
+            nlt = params["layer_type"]
+
         pc = run(["ogr2ogr",
                   "-overwrite",
                   "-a_srs", "EPSG:{:d}".format(authority_code),
                   "-f", "PostgreSQL",
                   "-lco", "SCHEMA={:s}".format(schema),
                   "-lco", "PRECISION=NO",
-                  "-nlt", "MULTIPOLYGON",
+                  "-nlt", nlt,
                   "PG:{:s}".format(dsn),
                   str(layer_def["src_filepath"]),
                   layer_name])
