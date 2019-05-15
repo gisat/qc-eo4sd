@@ -100,7 +100,7 @@
       }
     },
     {
-      "check_ident": "qc_tool.vector.enum",
+      "check_ident": "eo4sd.vector.enum",
       "required": false,
       "parameters": {
         "layers": ["al"],
