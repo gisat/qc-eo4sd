@@ -30,9 +30,19 @@ def run_check(params, status):
     # Check place and convert it to uppercase.
     place = mobj.group("place").upper()
 
+
     # Get layers.
     layer_defs = {"al": {"src_filepath": shp_filepath,
                          "src_layer_name": shp_filepath.stem,
-                         "place": place}}
+                         "place": place,
+                         "year1": None,
+                         "year2": None}}
+
+    # Check year1.
+    if "year1" in params["layer_regex"]:
+        layer_defs["al"]["year1"] = mobj.group("year1")
+
+    if "year2" in params["layer_regex"]:
+        layer_defs["al"]["year2"] = mobj.group("year2")
 
     status.add_params({"layer_defs": layer_defs})

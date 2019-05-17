@@ -14,6 +14,7 @@ def run_check(params, status):
 
     from qc_tool.vector.helper import do_layers
 
+
     OGR_TYPES = {ogr.OFTBinary: "binary",
                  ogr.OFTDate: "date",
                  ogr.OFTDateTime: "datetime",
@@ -38,8 +39,19 @@ def run_check(params, status):
     for layer_def in do_layers(params):
         ds = ogr.Open(str(layer_def["src_filepath"]))
         layer = ds.GetLayerByName(layer_def["src_layer_name"])
-        product_attrs = {attr_name: attr_type_names
-                         for attr_name, attr_type_names in params["attributes"].items()}
+
+        # check product_attrs, replacing YEAR1 with actual year and YEAR2 with
+        product_attrs = {}
+        for attr_name, attr_type_names in params["attributes"].items():
+            if layer_def["year1"] is not None and layer_def["year1"] in attr_name:
+                new_attr_name = attr_name.replace("YEAR1", layer_def["year1"])
+                product_attrs[new_attr_name] = attr_type_names
+            elif layer_def["year2"] is not None and layer_def["year2"] in attr_name:
+                new_attr_name = attr_name.replace("YEAR2", layer_def["year2"])
+                product_attrs[new_attr_name] = attr_type_names
+            else:
+                product_attrs[attr_name] = attr_type_names
+
         extra_attrs = {}
         for field_defn in layer.schema:
             field_type = field_defn.GetType()

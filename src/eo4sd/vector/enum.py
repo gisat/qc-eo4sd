@@ -37,6 +37,12 @@ def run_check(params, status):
     for layer_def in do_layers(params):
         for column_name, allowed_codes in params["column_defs"]:
 
+            # check product_attrs, replacing YEAR1 with actual year and YEAR2 with
+            if layer_def["year1"] is not None and layer_def["year1"] in column_name:
+                column_name = column_name.replace("year1", layer_def["year1"])
+            elif layer_def["year2"] is not None and layer_def["year2"] in column_name:
+                column_name = column_name.replace("year2", layer_def["year1"])
+
             # Prepare clause excluding features with non-null value of specific column.
             if "exclude_column_name" in params:
                 exclude_clause = "AND {:s} IS NULL".format(params["exclude_column_name"])
