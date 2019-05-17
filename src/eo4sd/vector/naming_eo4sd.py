@@ -41,8 +41,14 @@ def run_check(params, status):
     # Check year1.
     if "year1" in params["layer_regex"]:
         layer_defs["al"]["year1"] = mobj.group("year1")
+        status.info("year1: {:s}".format(mobj.group("year1")))
+    else:
+        status.info("layer_regex does not contain year1")
 
     if "year2" in params["layer_regex"]:
         layer_defs["al"]["year2"] = mobj.group("year2")
+        status.info("year2: {:s}".format(mobj.group("year1")))
+    else:
+        status.info("year2: {:s}".format(mobj.group("year2")))
 
     status.add_params({"layer_defs": layer_defs})
