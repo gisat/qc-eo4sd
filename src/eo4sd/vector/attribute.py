@@ -39,14 +39,17 @@ def run_check(params, status):
     for layer_def in do_layers(params):
         ds = ogr.Open(str(layer_def["src_filepath"]))
         layer = ds.GetLayerByName(layer_def["src_layer_name"])
+        year1 = layer_def["year1"]
+        year2 = layer_def["year2"]
+        status.info("year1: {0}, year2: {1}".format(year1, year2))
 
         # check product_attrs, replacing YEAR1 with actual year and YEAR2 with
         product_attrs = {}
         for attr_name, attr_type_names in params["attributes"].items():
-            if layer_def["year1"] is not None and layer_def["year1"] in attr_name:
+            if year1 is not None and "YEAR1" in attr_name:
                 new_attr_name = attr_name.replace("YEAR1", layer_def["year1"])
                 product_attrs[new_attr_name] = attr_type_names
-            elif layer_def["year2"] is not None and layer_def["year2"] in attr_name:
+            elif year2 is not None and "YEAR2" in attr_name:
                 new_attr_name = attr_name.replace("YEAR2", layer_def["year2"])
                 product_attrs[new_attr_name] = attr_type_names
             else:
