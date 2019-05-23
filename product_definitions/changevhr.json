@@ -13,7 +13,7 @@
       }
     },
     {
-      "check_ident": "qc_tool.vector.format",
+      "check_ident": "eo4sd.vector.format",
       "required": true,
       "parameters": {
         "layers":["al"],
