@@ -11,15 +11,12 @@ def run_check(params, status):
 
     from qc_tool.vector.helper import do_layers
 
-    # enable ogr to use exceptions
     ogr.UseExceptions()
-
     filepaths = set(layer_def["src_filepath"] for layer_def in do_layers(params))
     for filepath in filepaths:
         ds_extension = filepath.suffix
-        if (ds_extension not in params["formats"]
-            or ds_extension not in params["drivers"]):
-            status.aborted("The source file has forbidden extension: {:s}".format(ds_extension))
+        if ds_extension not in params["drivers"]:
+            status.aborted("The source file has forbidden extension: {:s}.".format(repr(ds_extension)))
         else:
             ds_open = None
             try:
