@@ -19,7 +19,7 @@ class Test_overlap(VectorCheckTestCase):
                             "limit": 0.1})
 
     def test_non_overlapping(self):
-        from qc_tool.vector.overlap_gisat import run_check
+        from eo4sd.vector.overlap import run_check
         self.cursor.execute("INSERT INTO test_layer VALUES (1, ST_MakeEnvelope(0, 0, 1, 1, 4326)),"
                                                          " (2, ST_MakeEnvelope(2, 0, 3, 1, 4326)),"
                                                          " (3, ST_MakeEnvelope(3, 1, 4, 2, 4326)),"
@@ -29,7 +29,7 @@ class Test_overlap(VectorCheckTestCase):
         self.assertEqual("ok", status.status)
 
     def test_overlapping_in_limit(self):
-        from qc_tool.vector.overlap_gisat import run_check
+        from eo4sd.vector.overlap import run_check
         self.cursor.execute("INSERT INTO test_layer VALUES (1, ST_MakeEnvelope(0, 0, 1, 1, 4326)),"
                                                          " (2, ST_MakeEnvelope(0.9, 0, 2, 1, 4326)),"
                                                          " (2, ST_MakeEnvelope(1.8, 0, 3, 1, 4326));")
@@ -38,7 +38,7 @@ class Test_overlap(VectorCheckTestCase):
         self.assertEqual("ok", status.status)
 
     def test_overlapping_out_of_limit(self):
-        from qc_tool.vector.overlap_gisat import run_check
+        from eo4sd.vector.overlap import run_check
         self.cursor.execute("INSERT INTO test_layer VALUES (1, ST_MakeEnvelope(0, 0, 1, 1, 4326)),"
                                                          " (2, ST_MakeEnvelope(0.79, 0, 2, 1, 4326)),"
                                                          " (3, ST_MakeEnvelope(1.7, 0, 3, 1, 4326));")
@@ -49,7 +49,7 @@ class Test_overlap(VectorCheckTestCase):
         self.assertListEqual([(1,), (2,), (3,)], self.cursor.fetchall())
 
     def test_contains(self):
-        from qc_tool.vector.overlap_gisat import run_check
+        from eo4sd.vector.overlap import run_check
         self.cursor.execute("INSERT INTO test_layer VALUES (1, ST_MakeEnvelope(0, 0, 2, 1, 4326)),"
                                                          " (2, ST_MakeEnvelope(0, 0, 0.5, 1, 4326)),"
                                                          " (3, ST_MakeEnvelope(1, 0, 1.001, 1, 4326));")
