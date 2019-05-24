@@ -29,3 +29,29 @@ docker run --rm \
   --volume=$EO_HOME:/usr/local/src/qc-eo4sd \
   eeacms/copernicus-qctool-worker \
   python3 -m unittest eo4sd.test.test_vector_check
+
+
+Testing together with qc_tool
+-----------------------------
+
+Sometimes it is needed to test the tool together with qc_tool while both are in development branch.
+In such case it is needed to override qc_tool sources in the container by actual development sources.
+This may be done by docker bind mount.
+
+Set the QC_TOOL_HOME in the same terminal where EO_HOME is set:
+
+QC_TOOL_HOME=/mnt/pracovni-archiv/projects/igor/copernicus_quality_tools
+
+Run the tests:
+
+docker run --rm \
+  --interactive --tty \
+  --name=qc_tool_test \
+  --link=qc_tool_postgis \
+  --env=PG_HOST=qc_tool_postgis \
+  --env=SKIP_INSPIRE_CHECK=yes \
+  --env=PYTHONPATH=/usr/local/src/copernicus_quality_tools/src:/usr/local/src/qc-eo4sd/src \
+  --volume=$EO_HOME:/usr/local/src/qc-eo4sd \
+  --volume=$QC_TOOL_HOME:/usr/local/src/copernicus_quality_tools \
+  eeacms/copernicus-qctool-worker \
+  python3 -m unittest eo4sd.test.test_vector_check
