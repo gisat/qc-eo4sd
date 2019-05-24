@@ -1,0 +1,31 @@
+How to run tests
+----------------
+
+Run container with postgis service:
+
+docker run --rm \
+ --interactive --tty \
+ --publish 5432:5432 \
+ --name=qc_tool_postgis \
+ --user=postgres \
+ eeacms/copernicus-qctool-worker \
+ /usr/lib/postgresql/10/bin/postgres -D /var/lib/postgresql/10/main -c config_file=/etc/postgresql/10/main/postgresql.conf
+
+Switch to other terminal.
+
+Setup EO_HOME to your development source files, eg.
+
+EO_HOME=/mnt/pracovni-archiv/projects/igor/qc-eo4sd
+
+Run the tests:
+
+docker run --rm \
+  --interactive --tty \
+  --name=qc_tool_test \
+  --link=qc_tool_postgis \
+  --env=PG_HOST=qc_tool_postgis \
+  --env=SKIP_INSPIRE_CHECK=yes \
+  --env=PYTHONPATH=/usr/local/src/copernicus_quality_tools/src:/usr/local/src/qc-eo4sd/src \
+  --volume=$EO_HOME:/usr/local/src/qc-eo4sd \
+  eeacms/copernicus-qctool-worker \
+  python3 -m unittest eo4sd.test.test_vector_check
