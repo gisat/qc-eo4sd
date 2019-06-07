@@ -22,10 +22,11 @@ def get_invalid_codes_message(cursor, error_table_name, pg_layer_name, pg_fid_na
     cursor.execute(sql)
     items = [row[0] for row in cursor.fetchmany(limit)]
     if len(items) == 0:
-        return None
+        return "NULL"
 
-    # Prepare and shorten the message.
+    # Prepare and shorten the message. Instead of None display NULL.
     message = ", ".join(map(str, items))
+    message = message.replace("None", "NULL")
     return message
 
 
