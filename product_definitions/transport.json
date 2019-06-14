@@ -27,6 +27,7 @@
         "layers": ["al"],
         "attributes": {"ID": ["string", "numeric"],
                        "CT_L1": ["numeric"],
+                       "CT_L2": ["numeric"],
                        "LENGTH": ["numeric"]
                        }
       }
@@ -98,7 +99,8 @@
       "required": false,
       "parameters": {
         "layers": ["al"],
-        "column_defs": [["ct_l1", [10, 20, 30, 40, 50]]]
+        "column_defs": [["ct_l1", [10, 20, 30, 40, 50, null]],
+                        ["ct_l2", [10, 20, 40, 50]]
       }
     }
   ]
