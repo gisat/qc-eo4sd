@@ -58,13 +58,22 @@ def run_check(params, status):
                           "error_table": "s{:02d}_{:s}_{:s}_error".format(params["step_nr"], layer_def["pg_layer_name"], column_name)}
 
             # Create table of error items.
-            sql = ("CREATE TABLE {error_table} AS"
-                   " SELECT {fid_name}"
-                   " FROM {layer_name}"
-                   " WHERE"
-                   "  ({column_name} IS NULL"
-                   "   OR {column_name} NOT IN %s)"
-                   "  {exclude_clause};")
+            if None in allowed_codes:
+                sql = ("CREATE TABLE {error_table} AS"
+                       " SELECT {fid_name}"
+                       " FROM {layer_name}"
+                       " WHERE"
+                       "  ({column_name} IS NULL"
+                       "   OR {column_name} NOT IN %s)"
+                       "  {exclude_clause};")
+            else:
+                sql = ("CREATE TABLE {error_table} AS"
+                       " SELECT {fid_name}"
+                       " FROM {layer_name}"
+                       " WHERE"
+                       "  ({column_name} IS NULL"
+                       "   OR {column_name} NOT IN %s)"
+                       "  {exclude_clause};")
             sql = sql.format(**sql_params)
             cursor.execute(sql, [tuple(allowed_codes)])
 
