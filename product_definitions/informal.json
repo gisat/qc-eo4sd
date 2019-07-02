@@ -104,9 +104,15 @@
       "parameters": {
         "layers": ["al"],
         "column_defs": [
-          ["nb_loctyp", ["High density", "Low density", "Pocket",
-                         "Linear along railway", "Linear along rivers",
-                         "Under or mixed with trees", "0"]]]
+          ["nb_loctyp", ["High density",
+                         "Low density",
+                         "Pocket",
+                         "Linear along railway",
+                         "Linear along rivers",
+                         "Under or mixed with trees",
+                         "planned",
+                         "unplanned",
+                         "0"]]]
       }
     },
     {
