@@ -25,10 +25,10 @@
       "required": true,
       "parameters": {
         "layers": ["al"],
-        "attributes": {"AREA": ["numeric"],
-                       "C_L1": ["numeric"],
+        "attributes": {
+                       "ID": ["string", "numeric"],
+                       "AREA": ["numeric"],
                        "C_L2": ["numeric"],
-                       "N_L1": ["string"],
                        "N_L2": ["string"]}
       }
     },
@@ -96,10 +96,7 @@
       "required": false,
       "parameters": {
         "layers": ["al"],
-        "column_defs": [["c_l1", [10000, 20000, 30000, 40000, 50000]],
-                        ["c_l2", [11000, 12000, 13000, 14000, 15000, 16000, 20000, 31000, 32000, 33000, 40000, 51000, 52000]]
-
-        ]
+        "column_defs": [["c_l2", [11000, 12000, 13000, 14000, 15000, 16000, 20000, 31000, 32000, 33000, 40000, 51000, 52000]]]
       }
     },
     {

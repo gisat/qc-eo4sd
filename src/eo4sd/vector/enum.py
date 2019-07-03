@@ -86,5 +86,5 @@ def run_check(params, status):
                                                                   layer_def["pg_fid_name"],
                                                                   sql_params["column_name"])
                 status.failed("Layer {:s} has column {:s} with invalid codes in features with {:s}: {:s}. Invalid codes are: {:s}."
-                              .format(layer_def["pg_layer_name"], column_name, layer_def["fid_display_name"], items_message, invalid_codes_message))
+                              .format(layer_def["pg_layer_name"], column_name.upper(), layer_def["fid_display_name"], items_message, invalid_codes_message))
                 status.add_error_table(sql_params["error_table"], layer_def["pg_layer_name"], layer_def["pg_fid_name"])
