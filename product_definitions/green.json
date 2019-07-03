@@ -92,6 +92,14 @@
       "required": true
     },
     {
+      "check_ident": "qc_tool.vector.unique",
+      "required": false,
+      "parameters": {
+        "layers": ["al"],
+        "unique_keys": ["id"]
+      }
+    },
+    {
       "check_ident": "eo4sd.vector.enum",
       "required": false,
       "parameters": {
