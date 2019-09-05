@@ -9,7 +9,7 @@
       "check_ident": "eo4sd.vector.naming_eo4sd",
       "required": true,
       "parameters": {
-        "layer_regex": "^EO4SD_(?P<place>[a-zA-Z_]+)_FHAZZARD_(?P<year>[0-9]{4})$"
+        "layer_regex": "^EO4SD_(?P<place>[a-zA-Z_]+)_FHAZARD_(?P<year>[0-9]{4})$"
       }
     },
     {

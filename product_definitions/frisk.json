@@ -108,7 +108,7 @@
       "parameters": {
         "layers": ["al"],
         "column_defs": [["riskcode_h", [1, 2, 3]],
-                        ["risklevel", ["A", "B", "C", "D"]]]
+                        ["risklevel", ["0", "Very High", "High Medium", "Low", "Very High Risk", "High Risk", "Medium Risk", "Low Risk"]]]
       }
     },
     {
